@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Gogolin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: lightgrey;
+            text-align: center;
+            scroll-behavior: smooth;
+            color: black;
+        }
+        
+        header, footer {
+            background: linear-gradient(90deg, #a76d29, #ffd700);
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Great Vibes', cursive;
+            font-style: italic;
+            width: 100%;
+            text-align: center;
+        }
+           
+        header {
+            background: linear-gradient(90deg, #a76d29, #ffd700);
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Great Vibes', cursive;
+            font-style: italic;
+            width: 100%;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #a76d29;
+            font-size: 18px;
+            padding: 10px 15px;
+            background: #fff3cd;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        nav a:hover {
+            transform: scale(1.1);
+            background: #ffd700;
+            color: black;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        footer {
+        background: linear-gradient(90deg, #a76d29, #ffd700);
+        color: white;
+        padding: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Great Vibes', cursive;
+        text-align: center;
+        width: 100%;
+        flex-shrink: 0;
+        margin-top: auto;
+}
+        
+        .gallery {
+        display: grid;
+        gap: 15px;
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 10px;
+}
+
+        @media (min-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+}
+}
+
+        @media (max-width: 1023px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+}
+
+        .gallery img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+}
+
+        .gallery img.enlarged {
+        transform: scale(2);
+        z-index: 1000;
+        position: relative;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+        section {
+        padding: 60px 10px;
+        margin: 20px;
+        border-radius: 10px;
+        color: black;
+        background: transparent;
+}
+
+        section h1 {
+        color: #a76d29;
+        font-size: 28px;
+        font-family: 'Great Vibes', cursive;
+}
+
+        table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+        background: white;
+}
+        th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        font-size: 16px;
+}
+        
+        th {  
+        background: linear-gradient(45deg, #d4af37, #b8860b);
+        color: white; 
+}
+        tr:hover {
+        background-color: #fff3cd;
+}
+        #kontakt iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
+        margin-top: 10px;
+}
+    
+        .qr-container {
+        margin-top: 20px; 
+}
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Pasek boczny (sidebar) */
+        #sidebar {
+            position: fixed;
+            left: -250px; /* Ukryty na starcie */
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: linear-gradient(90deg, #a76d29, #ffd700);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            padding-top: 60px;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        /* Linki w sidebarze */
+        #sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        #sidebar a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Przycisk zamykania */
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Przycisk otwierania */
+        #menu-btn {
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            font-size: 24px;
+            background: #a76d29;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1001;
+        }
+
+        /* Efekt kliknięcia */
+        #menu-btn:hover {
+            background: #ffd700;
+        }
+        
+    </style>
+   <script>
+        function toggleSize(img) {
+            let enlargedImg = document.querySelector('.gallery img.enlarged');
+            if (enlargedImg && enlargedImg !== img) {
+                enlargedImg.classList.remove('enlarged');
+            }
+            img.classList.toggle('enlarged');
+        }
+    </script>
+    <link rel="shortcut icon" href="stylizacja%20paznokci.jpg">
+    </head>
+    <body>
+    <header>
+        Salon Gogolin
+    </header>                
+    <nav>
+        <a href="#o-nas">O nas</a>
+        <a href="#uslugi">Usługi</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#aplikacja">Aplikacja</a>
+        <a href="#kontakt">Kontakt</a>
+    </nav>
+    <section id="o-nas">
+        <h1>O nas</h1>
+        <hr>
+        <p>Zapraszamy do salonu manicure, który urządzony jest nowocześnie i przytulnie z myślą o relaksie i pięknie dłoni.</p><p>Klienci mogą liczyć na profesjonalną obsługę i indywidualne podejście. Na miejscu wykonywane są różne rodzaje manicure – klasyczny, hybrydowy, żelowy czy akrylożelowy.</p>
+            <p>Przy stanowiskach do stylizacji paznokci znajdują się wygodne fotele oraz starannie zorganizowane stanowiska pracy, wyposażone w najnowszy sprzęt i szeroki wybór lakierów w modnych kolorach.</p> Dodatkowo salon dba o higienę i bezpieczeństwo, stosując sterylne narzędzia oraz najwyższej jakości kosmetyki. Atmosfera jest ciepła i serdeczna – idealna, by oderwać się od codziennych obowiązków i poczuć się wyjątkowo.
+   <p>W tymże salonie można skorzystać z usług fryzjerskich u Elviry Onoshko oraz umówić się na zabiegi makijażu permanentnego u Halyny   Solotvinskiej.</p>
+        <div class="gallery">
+            <img src="zdj%20salonu1.jpg" alt="zdj salonu 1" onclick="toggleSize(this)">
+            <img src="zdj%20salonu2.jpg" alt="zdj salonu 2" onclick="toggleSize(this)">
+            <img src="zdj%20salonu3.jpg" alt="zdj salonu 3" onclick="toggleSize(this)">
+            <img src="zdj%20salon4.jpg" alt="zdj salonu 4" onclick="toggleSize(this)">
+            <img src="zdj%20salonu5.jpg" alt="zdj salonu 5" onclick="toggleSize(this)">
+            <img src="zdj%20salonu6.jpg" alt="zdj salonu 6" onclick="toggleSize(this)">
+        </div>
+    </section>
+    <section id="uslugi">
+        <h1>Usługi</h1>
+        <hr>
+        <h2>Manicure</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usługa</th>
+                    <th>Krótka</th>
+                    <th>Średnia</th>
+                    <th>Długa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>French konstrukcyjny</td><td>x</td><td>170 zł</td><td>180 zł</td></tr>
+                <tr><td>Paznokcie przedłużane</td><td>150 zł</td><td>150 zł</td><td>170 zł</td></tr>
+                <tr><td>Baby boomer konstrukcyjny</td><td>x</td><td>140 zł</td><td>150 zł</td></tr>
+                <tr><td>Stylizacja hybryda/żelem</td><td>110 zł</td><td>130 zł</td><td>140 zł</td></tr>
+            </tbody>
+        </table>
+        
+        <h2>Pedicure</h2>
+        <table>
+            <thead>
+                <tr><th>Usługa</th><th>Cena</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Malowanie paznokci bazą + kolor</td><td>90 zł</td></tr>
+                <tr><td>Malowanie paznokci bazą hybrydową</td><td>80 zł</td></tr>
+                 <tr>
+            <td>Znaczne zrogowacenie</td>
+            <td>100 zł</td></tr><tr>
+            <td>Delikatne zrogowacenie</td>
+            <td>80 zł</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>Usługi dodatkowe</h3>
+        <ul>
+        <li>Dodatkowe zdobienie - 5 zł</li>
+        <li>Ściągnięcie stylizacji - 50 zł</li>
+        <li>Manicure klasyczny - 50 zł</li>
+        <li>Naprawa jednego paznokcia - 10 zł</li>
+        <li>Przedłużenie paznokcia podczas stylizacji - 2 zł</li>
+        </ul>        
+        </section>
+         <div id="sidebar">
+        <button id="close-btn">&times;</button>
+        <a href="fryzjer.html">Oferujemy Również Usługi Fryzjerskie</a>
+        <a href="brwi.html">Oferujemy Również Stylizacje Brwi</a>
+        </div>
+             <button id="menu-btn">&#9776;</button>
+             
+        <section id="galeria">
+        <hr>
+        <h1>Galeria</h1>
+        <p>Zdjęcia naszych stylizacji</p>
+         <div class="gallery">
+            <img src="paznokcie1.png" alt="Stylizacja paznokci 1" onclick="toggleSize(this)">
+            <img src="paznokcie2.png" alt="Stylizacja paznokci 2" onclick="toggleSize(this)">
+            <img src="paznokcie3.png" alt="Stylizacja paznokci 3" onclick="toggleSize(this)">
+            <img src="paznokcie4.png" alt="Stylizacja paznokci 4" onclick="toggleSize(this)">
+            <img src="paznokcie5.png" alt="Stylizacja paznokci 5" onclick="toggleSize(this)">
+            <img src="paznokcie6.png" alt="Stylizacja paznokci 6" onclick="toggleSize(this)">
+        </div>
+        </section>
+        <section id="aplikacja">
+            <hr>
+
+        <h1>Aplikacja</h1>
+        <p>Pobierz naszą aplikację, aby umówić wizytę jeszcze szybciej i wygodniej!</p>
+        <p>📲 <a href="https://play.google.com/store/apps/details?id=pl.wpadajsearch.twa&pcampaignid=web_share">Pobierz na Androida</a></p>
+        <p>🍏 <a href="https://apps.apple.com/pl/app/wpadaj-pl/id1606758966?l=pl">Pobierz na iOS</a></p>
+        <div class="qr-container">
+        <p>Zeskanuj kod QR, aby pobrać aplikację:</p>
+        <img src="qrcode.png" alt="Kod QR do aplikacji" width="150">
+        </div>
+    <p><a href="https://wpadaj.pl/salon/stylizacja-paznokci-daria-slawik-1/oferta" target="_blank">Zarezerwuj wizytę online</a></p>
+        </section>
+    <section id="kontakt">
+        <hr>
+        <h1>Kontakt</h1>
+        <p>📍 <a href="https://www.google.com/maps?q=Strzelecka+3,+Gogolin,+Polska" target="_blank">Adres: Strzelecka 3, Gogolin, Polska</a></p>
+        <p>📞 <a href="tel:+48729375949">729-375-949</a></p>
+        <p>📷 <a href="https://www.instagram.com/salongogolin" target="_blank">Instagram</a></p>
+        <p>📚 <a href="https://www.facebook.com/share/1DXZV6kdzG/" target="_blank">Facebook</a></p>
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.785480522009!2d18.0000000!3d50.5000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471135cb12345678%3A0xabcdef1234567890!2sSalon%20Stylizacji%20Paznokci%20Daria%20S%C5%82awik!5e0!3m2!1spl!2spl!4v1611811548564!5m2!1spl!2spl" allowfullscreen loading="lazy"></iframe>
+    </section>
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Pobranie elementów
+            const menuBtn = document.getElementById("menu-btn");
+            const closeBtn = document.getElementById("close-btn");
+            const sidebar = document.getElementById("sidebar");
+
+            // Otwieranie sidebaru
+            menuBtn.addEventListener("click", function () {
+                sidebar.style.left = "0px";
+            });
+
+            // Zamykanie sidebaru
+            closeBtn.addEventListener("click", function () {
+                sidebar.style.left = "-250px";
+            });
+        });
+    </script>
+    <footer>
+        &copy; 2025 Salon Stylizacji | Wszelkie prawa zastrzeżone
+    </footer>
+    </body>
+</html>
+        
